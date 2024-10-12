@@ -1,0 +1,53 @@
+{% extends "adminzone.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block admin %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-center p-5 pt-3" style="color:darkred;">Show Enquiries</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table" border="1">
+                    <thead>
+                        <tr>
+                            <th>Srno</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>Contactno</th>
+                            <th>Email</th>
+                            <th>Enqtext</th>
+                            <th>Enqdate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in show %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.gender}}</td>
+                            <td>{{i.address}}</td>
+                            <td>{{i.contactno}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.enquirytext}}</td>
+                            <td>{{i.enqdate}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock admin %}
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends "adminzone.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block admin %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-center" style="color:darkred">Upload Assignments</h1>
+            </div>
+            <div class="col-sm-12">
+                {% for mess in messages %}
+                <div class="alert alert-primary" role="alert">
+                    {{mess}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-12">
+                <form action="{% url 'uassave' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row p-3 m-3 border-dark bg-light shadow">
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Program</p>
+                            <input type="text" name="program" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Branch</p>
+                            <input type="text" name="branch" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Year</p>
+                            <input type="text" name="year" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Subject</p>
+                            <input type="text" name="subject" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <p>Upload File</p>
+                            <div class="border border-dark rounded-0 p-2">
+                                <input type="file" id="" name="new_file">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <input type="submit" value="submit" class="btn form-control" style="background-color:darkred;color:white;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% comment %} <div class="col-sm-12">
+                table
+            </div> {% endcomment %}
+        </div>
+    </div>
+    {% endblock admin %}
+</body>
+</html>

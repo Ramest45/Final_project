@@ -1,0 +1,106 @@
+{% extends "studentzone.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block student %}
+    <div class="conainer-fluid">
+        <div class="row shadow bg-light m-4">
+            <div class="col-sm-4 text-center" style="height:315px;">
+                {% if show.profile_file %}
+                <img src="{{show.profile_pic.url}}" sytle="height:300px; width:260px; border-radius:100%" alt="">
+                {% else %}
+                <p>No Such file</p>
+                {% endif %}
+            </div>
+            <div class="col-sm-8 p-5">
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Branch</th>
+                    </tr>
+                    <tr>
+                        <td>{{show.name}}</td>
+                        <td>{{show.program}}</td>
+                        <td>{{show.branch}}</td>
+                    </tr>
+                    <tr>
+                        <th>Year</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr>
+                        <td>{{show.year}}</td>
+                        <td>{{show.contactno}}</td>
+                        <td>{{show.email}}</td>
+                    </tr>
+                </table>
+                <div class="mb-0 text-end">
+                    <a href="{% url 'upprofile' %}">
+                    <button class="btn mt-3" style="background-color:darkred;color:white;">Update Profile</button>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row bg-light shadow m-4" style="height:500px">
+            <div class="col-sm-12 p-3">
+                <table class="table">
+                    <tr  class="text-center">
+                        <th>Rollno</th>
+                        <td>{{show.rollno}}</td>
+                    </tr>
+                    <tr class="text-center"> 
+                        <th>Name</th>
+                        <td>{{show.name}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Father's Name</th>
+                        <td>{{show.fname}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Mother's Name</th>
+                        <td>{{show.mname}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Gender</th>
+                        <td>{{show.gender}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Address</th>
+                        <td>{{show.address}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Program</th>
+                        <td>{{show.program}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Year</th>
+                        <td>{{show.year}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Branch</th>
+                        <td>{{show.branch}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Contactno</th>
+                        <td>{{show.contactno}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <th>Email</th>
+                        <td>{{show.email}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock student %}
+</body>
+</html>

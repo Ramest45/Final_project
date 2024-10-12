@@ -1,0 +1,44 @@
+{% extends "adminzone.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block admin %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-center" style="color:darkred">Upload Feedback</h1>
+            </div>
+            <div class="col-sm-12">
+                {% for mess in messages %}
+                <div class="alert alert-primary" role="alert">
+                    {{mess}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-12">
+                <form action="{% url 'feedsave' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row p-3 m-3 border-dark bg-light shadow">
+                        <div class="col-sm-12 mt-3">
+                            <p>Enter Subject</p>
+                            <input type="text" name="subject" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <p>Feedback</p>
+                            <textarea class="form-control border-dark rounded-0" name="feed" id=""></textarea>
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <input type="submit" value="submit" class="btn form-control" style="background-color:darkred;color:white;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+    {% endblock admin %}
+</body>
+</html>
