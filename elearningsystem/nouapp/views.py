@@ -1,8 +1,10 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.utils import timezone
-from .models import login, registration, tbl_contact,tbl_Usm,upload_lecture,upload_assign,Feedback
+from .models import login, registration, tbl_contact,tbl_Usm,upload_lecture,upload_assign,Feedback,Complaints
 from django.views.decorators.cache import cache_control
 from django.contrib import messages
+from django.core.mail import send_mail
+from .import smssender
 
 # Create your views here.
 def home(request):
@@ -17,6 +19,7 @@ def regsave(request):
     fname=request.POST['fname']
     mname=request.POST['mname']
     gender=request.POST['gender']
+    address=request.POST['address']
     program=request.POST['program']
     branch=request.POST['branch']
     year=request.POST['year']
@@ -26,11 +29,34 @@ def regsave(request):
     regdate=timezone.now()
     usertype='student'
     status='pending'
-    ab=registration(rollno=rollno,name=name,fname=fname,mname=mname,gender=gender,program=program,branch=branch,year=year,contactno=contactno,email=email,password=password,regdate=regdate)
+    ab=registration(rollno=rollno,name=name,fname=fname,mname=mname,gender=gender,address=address,program=program,branch=branch,year=year,contactno=contactno,email=email,password=password,regdate=regdate)
     bc=login(userId=email,password=password,usertype=usertype,status=status)
     ab.save()
     bc.save()
-    return redirect('registration_page')
+    # Prepare email content
+    subject = 'Registration Confirmation'
+    message = f'''
+    Welcome to Nou Egyan!
+    We’re excited to have you as a part of our community. 
+    Below, you’ll find your login details for accessing the Nou Egyan portal.
+
+    Your Userid And Password is:
+    Userid: {email}
+    Password: {password}
+
+    Please keep this information secure and do not share it with anyone.
+    '''
+    from_email = 'ramest2115443@akgec.ac.in'
+    recipient_list = [email]
+
+        # Send email
+    send_mail(subject, message, from_email, recipient_list)
+
+        # Add success message and redirect
+    messages.success(request, 'Registration successful! Please check your email for confirmation.')
+    return render(request, 'registration.html') # Replace with your success URL
+      #  return redirect('registartion')
+    # return redirect('registration_page')
 
 def contact_page(request):
     if request.method=='POST':
@@ -43,6 +69,7 @@ def contact_page(request):
         enqdate=timezone.now()
         cs=tbl_contact(name=name,gender=gender,address=address,contactno=contactno,email=email,enquirytext=enquirytext,enqdate=enqdate)
         cs.save()
+        smssender.sendsms(contactno)
         return redirect('home')
     return render(request,'contactus.html')
 
@@ -138,7 +165,8 @@ def showenq(request):
     return render(request,'showenq.html',{'show':ab})
 
 def Usm(request):
-    return render(request,'Usm.html')
+    ab=tbl_Usm.objects.all()
+    return render(request,'Usm.html',{'ab':ab})
 
 def Usmsave(request):
     program=request.POST['program']
@@ -152,7 +180,8 @@ def Usmsave(request):
     return redirect('Usm')
 
 def Upload_lecture(request):
-    return render(request,'upload_lecture.html')
+    ab=upload_lecture.objects.all()
+    return render(request,'upload_lecture.html',{'ab':ab})
 
 def lecturesave(request):
     program=request.POST['program']
@@ -186,7 +215,8 @@ def showlecture(request):
         return redirect('login_page')
     
 def upload_assignment(request):
-    return render(request,'upload_assignment.html')
+    ab=upload_assign.objects.all()
+    return render(request,'upload_assignment.html',{'ab':ab})
     
 def uassave(request):
     program=request.POST['program']
@@ -207,26 +237,81 @@ def viewAssignment(request):
         return redirect("login_page")
     
 def upload_feedback(request):
-    return render(request,'feedback.html')
+    ab=Feedback.objects.all()
+    return render(request,'feedback.html',{'ab':ab})
 
 def feedsave(request):
-    if request.method=="POST":
+    if request.method=='POST':
         subject=request.POST.get('subject')
         feedback=request.POST.get('feed')
         user_email=request.session.get('userId')
-        user=Feedback.objects.filter(email=user_email).first()
-    if user:
-        Feedback.objects.create(
-            name=user.name,
-            program=user.program,
-            branch=user.branch,
-            year=user.year,
-            subject=subject,
-            feed=feedback,
-            reqdate=timezone.now(),
-        )
-        messages.success(request,'Feedback Submitted Successfully!!')
-    else:
-        messages.success(request,'Not Found')
-        return redirect('upload_feedback')
+        user=registration.objects.filter(email=user_email).first()
+        if user:
+            Feedback.objects.create(
+                name=user.name,
+                program=user.program,
+                branch=user.branch,
+                year=user.year,
+                subject=subject,
+                feed=feedback,
+                reqdate=timezone.now()
+            )
+            messages.success(request,'Feedback Submitted Successfully!!')
+        else:
+            messages.success(request,'Not Found')
+        return render(request,'feedback.html')
+    return redirect('upload_feedback')
     
+def upload_comp(request):
+    ab=Complaints.objects.all()
+    return render(request,'complaint.html',{'ab':ab})
+
+def compsave(request):
+    if request.method=='POST':
+        subject=request.POST.get('subject')
+        comp=request.POST.get('comp')
+        user_email=request.session.get('userId')
+        user=registration.objects.filter(email=user_email).first()
+        if user:
+            Complaints.objects.create(
+                name=user.name,
+                program=user.program,
+                branch=user.branch,
+                year=user.year,
+                subject=subject,
+                comp=comp,
+                reqdate=timezone.now()
+            )
+            messages.success(request,'Complaint Submitted Successfully!!')
+        else:
+            messages.success(request,'Not Found')
+        return render(request,'complaint.html')
+    return redirect('upload_comp')
+
+def deletefeed(request,id):
+    ab=Feedback.objects.get(pk=id)
+    ab.delete()
+    return redirect('upload_feedback')
+
+def deletecomp(request,id):
+    ab=Complaints.objects.get(pk=id)
+    ab.delete()
+    return redirect('upload_comp')
+
+def viewcomp(request):
+    show=Complaints.objects.all()
+    return render(request,'viewcomp.html',{'show':show})
+
+def viewfeed(request):
+    show=Feedback.objects.all()
+    return render(request,'viewfeed.html',{'show':show})
+
+def deleteAdmincomp(request,id):
+    ab=Complaints.objects.get(pk=id)
+    ab.delete()
+    return render(request,'viewcomp.html')
+
+def deleteAdminfeed(request,id):
+    ab=Feedback.objects.get(pk=id)
+    ab.delete()
+    return render(request,'viewfeed.html')

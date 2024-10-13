@@ -12,22 +12,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="text-center p-5 pt-3" style="color:darkred;">Show Enquiries</h1>
+                <h1 class="text-center p-5 pt-3" style="color:darkred;">Show Feedback</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table" border="1">
                     <thead>
-                        <tr class="text-center" style="background-color:darkred !important;">
+                        <tr style="background-color:darkred">
                             <th style="color:white;">Srno</th>
                             <th style="color:white;">Name</th>
-                            <th style="color:white;">Gender</th>
-                            <th style="color:white;">Address</th>
-                            <th style="color:white;">Contactno</th>
-                            <th style="color:white;">Email</th>
-                            <th style="color:white;">Enqtext</th>
-                            <th style="color:white;">Enqdate</th>
+                            <th style="color:white;">Program</th>
+                            <th style="color:white;">Branch</th>
+                            <th style="color:white;">Year</th>
+                            <th style="color:white;">Subject</th>
+                            <th style="color:white;">Feedback</th>
                             <th style="color:white;">Action</th>
                         </tr>
                     </thead>
@@ -36,15 +35,13 @@
                         <tr class="text-center">
                             <td>{{i.id}}</td>
                             <td>{{i.name}}</td>
-                            <td>{{i.gender}}</td>
-                            <td>{{i.address}}</td>
-                            <td>{{i.contactno}}</td>
-                            <td>{{i.email}}</td>
-                            <td>{{i.enquirytext}}</td>
-                            <td>{{i.enqdate}}</td>
+                            <td>{{i.program}}</td>
+                            <td>{{i.branch}}</td>
+                            <td>{{i.year}}</td>
+                            <td>{{i.subject}}</td>
+                            <td>{{i.feed}}</td>
                             <td>
-                                <a href=""><i class="fa-solid fa-trash-can" style="color:red">&nbsp;&nbsp;&nbsp;</i></a>
-                                <a href=""><i class="fa-solid fa-pen-to-square" style="color: #32e2ad;"></i></a>
+                                <a href="{% url 'deleteAdminfeed' i.id %}"><i class="fa-solid fa-trash-can" style="color:red"></i></a>
                             </td>
                         </tr>
                         {% endfor %}

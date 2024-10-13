@@ -70,6 +70,7 @@ class Feedback(models.Model):
 class Complaints(models.Model):
     id=models.IntegerField(primary_key=True,auto_created=True)
     name=models.CharField(max_length=100)
+    program=models.CharField(max_length=100)
     branch=models.CharField(max_length=200)
     year=models.CharField(max_length=10)
     subject=models.CharField(max_length=100)
