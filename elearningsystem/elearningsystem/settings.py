@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-EMAIL_HOST_USER = os.getenv('ramestgupta1234@gmail.com')
-EMAIL_HOST_PASSWORD=os.getenv('gzyk ipja dfnk azmk')
+EMAIL_HOST_USER = os.getenv('')
+EMAIL_HOST_PASSWORD=os.getenv('')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-kjg4amn(kn34k+c&i(tic8xf&u@h7-u&0gq12$v0wtq46jcu)j'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -132,5 +132,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ramestgupta1234@gmail.com'
-EMAIL_HOST_PASSWORD = 'gzyk ipja dfnk azmk'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
