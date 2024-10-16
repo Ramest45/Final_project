@@ -1,4 +1,4 @@
-During our internship at Softpro India Computer Technologies, we worked on a project to develop a web-based application called the Nalanda Open University E-Gyan Portal, which is a Learning Management System (LMS). Here are the technologies and tasks we worked on:
+During our internship at Softpro India Computer Technologies, we worked on this project to develop a web-based application called the Nalanda Open University E-Gyan Portal, which is a Learning Management System (LMS). Here are the technologies and tasks we worked on:
 
 1. Frontend Development:
 
