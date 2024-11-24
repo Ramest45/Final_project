@@ -1,7 +1,7 @@
 from urllib.parse import urlencode
 from urllib.request import urlopen,Request
 user="BRIJESH"
-key="066c862acdXX"
+key=KEY
 senderid="UPDSMS"
 accusage="1"
 entityid="1201159543060917386"
