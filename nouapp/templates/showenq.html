@@ -1,0 +1,58 @@
+{% extends "adminzone.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block admin %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-center p-5 pt-3" style="color:darkred;">Show Enquiries</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table" border="1">
+                    <thead>
+                        <tr class="text-center" style="background-color:darkred !important;">
+                            <th style="color:white;">Srno</th>
+                            <th style="color:white;">Name</th>
+                            <th style="color:white;">Gender</th>
+                            <th style="color:white;">Address</th>
+                            <th style="color:white;">Contactno</th>
+                            <th style="color:white;">Email</th>
+                            <th style="color:white;">Enqtext</th>
+                            <th style="color:white;">Enqdate</th>
+                            <th style="color:white;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in show %}
+                        <tr class="text-center">
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.gender}}</td>
+                            <td>{{i.address}}</td>
+                            <td>{{i.contactno}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.enquirytext}}</td>
+                            <td>{{i.enqdate}}</td>
+                            <td>
+                                <a href=""><i class="fa-solid fa-trash-can" style="color:red">&nbsp;&nbsp;&nbsp;</i></a>
+                                <a href=""><i class="fa-solid fa-pen-to-square" style="color: #32e2ad;"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock admin %}
+</body>
+</html>

@@ -1,0 +1,95 @@
+{% extends "adminzone.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block admin %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-center" style="color:darkred">Upload Lecture</h1>
+            </div>
+            <div class="col-sm-12">
+                {% for mess in messages %}
+                <div class="alert alert-primary" role="alert">
+                    {{mess}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-12">
+                <form action="{% url 'lecturesave' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row p-3 m-3 border-dark bg-light shadow">
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Program</p>
+                            <input type="text" name="program" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Branch</p>
+                            <input type="text" name="branch" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Year</p>
+                            <input type="text" name="year" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-6 mt-3">
+                            <p>Enter Subject</p>
+                            <input type="text" name="subject" class="form-control border-dark rounded-0">
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <p>Link</p>
+                            <input type="text" class="form-control border-dark rounded-0" name="link" placeholder="eg:.https://www.youtube.com/">
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <input type="submit" value="submit" class="btn form-control" style="background-color:darkred;color:white;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12 p-4">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center" style="background-color:darkred !important;">
+                            <th class="text-light">Srno</th>
+                            <th class="text-light">Program</th>
+                            <th class="text-light">Branch</th>
+                            <th class="text-light">Year</th>
+                            <th class="text-light">Subject</th>
+                            <th class="text-light">See Lecture</th>
+                            <th class="text-light">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mess in messages %}
+                        <div class="alert alert-danger m-4" role="alert">
+                            {{mess}}
+                        </div>
+                        {% endfor %}
+                        {% for i in ab %}
+                        <tr class="text-center">
+                            <td>{{i.id}}</td>
+                            <td>{{i.program}}</td>
+                            <td>{{i.branch}}</td>
+                            <td>{{i.year}}</td>
+                            <td>{{i.subject}}</td>
+                            <td><a href="{{i.link}}" target="_blank"><i class="fa-solid fa-eye"></i>&nbsp;Video Tutorials</a></td>
+                            <td>
+                                <a href=""><i class="fa-solid fa-trash-can" style="color:red">&nbsp;&nbsp;&nbsp;</i></a>
+                                <a href=""><i class="fa-solid fa-pen-to-square" style="color: #32e2ad;"></i></a>
+                            </td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock admin %}
+</body>
+</html>
