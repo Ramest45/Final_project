@@ -1,5 +1,8 @@
 from urllib.parse import urlencode
 from urllib.request import urlopen,Request
+import os
+
+KEY = os.getenv('KEY')
 user="BRIJESH"
 key=KEY
 senderid="UPDSMS"
